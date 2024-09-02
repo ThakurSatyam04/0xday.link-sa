@@ -12,7 +12,7 @@ const AdminLogin: React.FC = () => {
 
   const sendOtp = async () => {
     try {
-        const response = await axios.post('/api/send-otp', { phoneNumber });
+        const response = await axios.post('/api/auth/send-otp', { phoneNumber });
         if (response.status === 200) {
           setIsOtpSent(true);
           alert('OTP sent successfully');
@@ -30,8 +30,8 @@ const AdminLogin: React.FC = () => {
 
   const verifyOtp = async () => {
     try {
-      const response = await axios.post('/api/verify-otp', { phoneNumber, otpcode });
-      if (response.status === 200 ) {
+      const response = await axios.post('/api/auth/verify-otp', { phoneNumber, otpcode });
+      if (response.status === 200 && response.data.token ) {
         // Store token and navigate on success
         localStorage.setItem('token', response.data.token);
         navigate('/admin-access');

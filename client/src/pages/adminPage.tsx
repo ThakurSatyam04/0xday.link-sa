@@ -70,16 +70,20 @@ const AdminPage: React.FC = () => {
       let response;
       if (username) {
         // Update existing user
-        response = await axios.put(`/api/update-user/${username}`, formData, {
+        const token = localStorage.getItem("token");
+        response = await axios.put(`/api/admin/update-user/${username}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'admin-auth':token,
           },
         });
       } else {
         // Add new user
-        response = await axios.post('/api/add-user', formData, {
+        const token = localStorage.getItem("token");
+        response = await axios.post('/api/admin/add-user', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'admin-auth':token,
           },
         });
       }
@@ -125,7 +129,7 @@ const AdminPage: React.FC = () => {
                   }
                 }}
               />
-              {errors && <p className="text-red-500 text-sm mt-1">Already uploaded, add updated dp is needed...</p>}
+              {/* {errors && <p className="text-red-500 text-sm mt-1">Already uploaded, add updated dp is needed...</p>} */}
             </div>
             <div>
               <Label htmlFor="username">Username</Label>

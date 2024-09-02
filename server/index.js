@@ -4,10 +4,13 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParse from 'body-parser'
-import OxdayLinkRoute from './routes/0xdayLinkRoute.js' 
+// import OxdayLinkRoute from './routes/0xdayLinkRoute.js' 
 import { fileURLToPath } from 'url';
 import path from 'path'
 import authenticateToken from './middlewares/protectAdminRoute.js'
+import authRouter from './routes/authRouter.js'
+import adminRouter from './routes/adminRouter.js'
+import userRouter from './routes/userRouter.js'
 
 // Create __dirname manually
 const __filename = fileURLToPath(import.meta.url);
@@ -25,7 +28,11 @@ const port = process.env.PORT || 3001
 // Serve static files from the dp-uploads directory
 const dpUploadsPath = path.join(__dirname, 'dp-uploads');
 app.use('/dp-uploads', express.static(dpUploadsPath));
-app.use("/api", OxdayLinkRoute)
+
+app.use('/api/auth', authRouter)
+app.use('/api/admin', adminRouter) 
+app.use('/api/user', userRouter)
+
 app.use('/admin-access', authenticateToken)
 
 app.use((err, req, res, next) => {

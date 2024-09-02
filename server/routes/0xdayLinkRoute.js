@@ -11,9 +11,9 @@ const router = Router();
 router.post('/send-otp', sendOTPController);
 router.post('/verify-otp', validateOTPController);
 router.get('/admin', authenticateToken, adminPageController)
-router.post('/add-user', userDataSubmitController);
-router.put('/update-user/:username', updateUserController)
-router.get('/user/:username', getUserDataController);
+router.post('/add-user',authenticateToken, userDataSubmitController);
+router.put('/update-user/:username',authenticateToken, updateUserController)
+router.get('/user/:username',authenticateToken, getUserDataController);
 
 
 export default router;

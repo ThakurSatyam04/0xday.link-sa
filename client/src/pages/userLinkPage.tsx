@@ -6,9 +6,8 @@ import axios from 'axios';
 const UserTemplate: React.FC = () => {
   const { username } = useParams<{ username: string }>();
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const resolvedUsername = username || "0xday";
+  const resolvedUsername = username || "0xday"; 
 
   useEffect(()=>{
     const fetchUserData = async()=>{
@@ -16,9 +15,7 @@ const UserTemplate: React.FC = () => {
         const response = await axios.get(`/api/user/${resolvedUsername}`);
         setUserData(response.data);
       } catch (error) {
-        console.log("Error in fetching userdata in userLinkPage")
-      } finally {
-        setLoading(false);
+        console.log("Error in fetching userdata in userLinkPage") 
       }
     };
 

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { FaInstagram, FaLinkedin, FaFacebook, FaGithub, FaUser } from 'react-icons/fa';
-import { Data } from '../dummyData';
 import { default as TwitterXIcon } from '../twitter-x.svg';
 
 interface TemplateProps {
-  data: Data;
+  data: any;
 }
 
 const Template: React.FC<TemplateProps> = ({ data }) => {

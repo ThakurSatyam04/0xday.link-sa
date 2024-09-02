@@ -1,19 +1,19 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const authenticateToken = (req, res, next) => {
-  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+  try {
+    const token = req.header("admin-auth");
 
-  if (!token) {
-    return res.status(401).json({ error: 'Access denied' });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Invalid token' });
+    if (!token) {
+      return res.status(401).json({ error: " Admin access denied" });
     }
-    req.user = user;
+
+    const payload = jwt.verify(token, "sherlock"); // throw error for invalid token
+    req.user = payload;
     next();
-  });
+  } catch (error) {
+    return res.status(401).json({message: "Admin access denied"});
+  }
 };
 
 export default authenticateToken;
