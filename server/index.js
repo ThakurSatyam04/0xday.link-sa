@@ -25,12 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3001
 
-app.use(express.static(path.join(__dirname, 'dist')))
-
-app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'))
-})
-
 // Serve static files from the dp-uploads directory
 const dpUploadsPath = path.join(__dirname, 'dp-uploads');
 app.use('/dp-uploads', express.static(dpUploadsPath));
@@ -40,6 +34,11 @@ app.use('/api/admin', adminRouter)
 app.use('/api/user', userRouter)
 
 app.use('/admin-access', authenticateToken)
+
+app.use(express.static(path.join(__dirname, 'dist-client')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist-client', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
