@@ -38,7 +38,7 @@ async function sendOTPController(req, res) {
     const newOtp = new Otp({ phoneNumber, otpcode });
     await newOtp.save();
 
-    const success = { success: { msg: "OTP sent successfully" } };
+    const success = { success: { msg: "OTP sent successfully", otp:otpcode } };
     return res.status(200).json(success);
   } catch (error) {
     console.log("Error from sendOTPController", error);
